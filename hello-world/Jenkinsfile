@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage("build") {
+            steps {
+                script {
+                    sh "docker build -t npm1 ."
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script{
+                    sh "docker run-d -p 3000:3000 --name container npm1"
+                }
+            }
+        }
+    }
+}
